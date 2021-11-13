@@ -1,72 +1,30 @@
-import * as React from "react";
-import { StyleSheet, Text, View, Button } from "react-native";
-import { NavigationContainer } from "@react-navigation/native";
-import { createStackNavigator } from "@react-navigation/stack";
+import React, { useState } from 'react';
+import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
-const Stack = createStackNavigator();
+import OnboardingScreen from './screens/OnboardingScreen';
+import LoginScreen from './screens/LoginScreen';
 
-const HomeScreen = ({ navigation }) => {
-  return (
-    <View style={styles.container}>
-      <Text>Home Screen</Text>
-      <Button
-        title="Go to Details"
-        onPress={() => navigation.navigate("Details")}
-      />
-    </View>
-  );
-};
-
-const DetailsScreen = () => {
-  return (
-    <View style={styles.container}>
-      <Text>Details Screen</Text>
-    </View>
-  );
-};
+const AppStack = createStackNavigator();
 
 const App = () => {
+  // const [valueStored, setValueStored] = useState(null)
+
+  // useEffect(() => {
+  //   AsyncStorage.getItem
+  // })
+
   return (
     <NavigationContainer>
-      <Stack.Navigator>
-        <Stack.Screen
-          name="Home"
-          component={HomeScreen}
-          options={{
-            headerStyle: {
-              backgroundColor: '#803906',
-            },
-            headerTintColor: '#fff',
-            headerTintStyle: {
-              fontWeight: 'bold',
-            }
-          }}
-        />
-        <Stack.Screen
-          name="Details"
-          component={DetailsScreen}
-          options={{
-            headerStyle: {
-              backgroundColor: '#803906',
-            },
-            headerTintColor: '#fff',
-            headerTintStyle: {
-              fontWeight: 'bold',
-            }
-          }}
-        />
-      </Stack.Navigator>
+      <AppStack.Navigator
+        headerMode="none"
+      >
+        <AppStack.Screen name="Onboarding" component={OnboardingScreen} />
+        <AppStack.Screen name="Login" component={LoginScreen} />
+      </AppStack.Navigator>
     </NavigationContainer>
-  );
-};
+  )
+}
 
 export default App;
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#fff",
-    alignItems: "center",
-    justifyContent: "center",
-  },
-});
